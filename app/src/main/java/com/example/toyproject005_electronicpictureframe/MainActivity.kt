@@ -1,6 +1,7 @@
 package com.example.toyproject005_electronicpictureframe
 
 
+import android.app.Instrumentation
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 
@@ -16,7 +19,9 @@ import androidx.core.content.ContextCompat
 
 
 class MainActivity : AppCompatActivity() {
+    private val resultContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){activityResultRegistry
 
+    }
     private val addPhotoButton: Button by lazy {
         findViewById<Button>(R.id.addphotoButton)
     }
@@ -71,7 +76,7 @@ class MainActivity : AppCompatActivity() {
     private fun navigatePhotos(){
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "image/*"
-        startActivityForResult(intent, 2000)
+        resultContract.launch(intent)
     }
 
 
@@ -113,6 +118,5 @@ class MainActivity : AppCompatActivity() {
     private fun initStartPhotoFrameButton() {
 
     }
-
 
 }
